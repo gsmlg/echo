@@ -1,9 +1,10 @@
 var http = require('http');
 
 server = http.createServer(function(req, res) {
-	var body = '';
+	var buffers = [];
 	req.on('data', function(trunk){
-		body += trunk;
+        console.log(trunk);
+        buffers.push(trunk);
 	});
 
 	req.on('end', function() {
@@ -26,6 +27,8 @@ server = http.createServer(function(req, res) {
 		}
 
 		res.write('\r\n');
+
+		var body = Buffer.concat(buffers);
 
 		res.end(body);
 	});
