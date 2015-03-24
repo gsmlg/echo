@@ -8,11 +8,13 @@ server = http.createServer(function(req, res) {
 
 	req.on('end', function() {
 		// node.js 0.10 did not have rawHeaders
-		if (!req.rawHeaders) {
+		if (1 || !req.rawHeaders) {
 			req.rawHeaders = [];
 			for (var name in req.headers) {
-				if (req.headers.hasOwnProperty(name))
-					req.rawHeaders.concat(name, req.headers[name]);
+				if (req.headers.hasOwnProperty(name)) {
+					req.rawHeaders.push(name);
+					req.rawHeaders.push(req.headers[name]);
+				}
 			}
 		}
 
