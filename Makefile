@@ -5,4 +5,4 @@ default:
 	@echo make conf create nginx conf
 
 conf:
-	sed 's/<HOST>/${HOST}/g' nginx.conf | sed 's/<PORT>/${PORT}/g' 
+	@sed 's/<HOST>/${HOST}/g' nginx.conf | sed 's/<PORT>/${PORT}/g' 
