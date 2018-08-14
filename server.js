@@ -1,5 +1,5 @@
 const http = require('http');
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.NODE_PORT || 80;
 
 const server = http.createServer(function(req, res) {
   const buffers = [];
