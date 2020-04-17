@@ -22,6 +22,7 @@ const server = http.createServer(function(req, res) {
 	  res.write('\r\n');
 	  const body = Buffer.concat(buffers);
 
+	  console.log('\r\n');
       console.log(body.toString());
 
 	  res.end(body);
