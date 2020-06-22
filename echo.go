@@ -7,16 +7,23 @@ import (
     "io/ioutil"
     "time"
     "fmt"
+    "os"
 )
 
 func myHandler (w http.ResponseWriter, r *http.Request) {
-    str := fmt.Sprintf("%s %s\r\n", r.Method, r.URL)
+    str := fmt.Sprintf("====> New request from %s \r\n", r.RemoteAddr)
+    os.Stdout.WriteString(str)
+
+    str = fmt.Sprintf("%s %s\r\n", r.Method, r.URL)
     io.WriteString(w, str)
+    io.WriteString(os.Stdout, str)
     for k,v := range(r.Header) {
         str := fmt.Sprintf("%s: %s\r\n", k, v)
         io.WriteString(w, str)
+        io.WriteString(os.Stdout, str)
     }
     io.WriteString(w, "\r\n")
+    io.WriteString(os.Stdout, "\r\n")
 
     body, err := ioutil.ReadAll(r.Body)
     if err != nil {
@@ -25,6 +32,10 @@ func myHandler (w http.ResponseWriter, r *http.Request) {
         return
     }
     w.Write(body)
+    os.Stdout.Write(body)
+
+    io.WriteString(w, "\r\n")
+    io.WriteString(os.Stdout, "\r\n")
 }
 
 func main() {
