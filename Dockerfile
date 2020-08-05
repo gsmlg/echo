@@ -2,7 +2,7 @@ FROM golang:alpine as builder
 
 COPY echo.go /go
 
-RUN go build echo.go
+RUN CGO_ENABLED=0 go build echo.go
 
 FROM scratch
 
@@ -12,4 +12,4 @@ EXPOSE 80
 
 COPY --from=builder /go/echo /echo
 
-ENTRYPOINT ["/echo"]
+ENTRYPOINT [ "/echo" ]
