@@ -18,9 +18,11 @@ func myHandler (w http.ResponseWriter, r *http.Request) {
     io.WriteString(w, str)
     io.WriteString(os.Stdout, str)
     for k,v := range(r.Header) {
-        str := fmt.Sprintf("%s: %s\r\n", k, v)
-        io.WriteString(w, str)
-        io.WriteString(os.Stdout, str)
+        for _, vv := range(v) {
+            str := fmt.Sprintf("%s: %s\r\n", k, vv)
+            io.WriteString(w, str)
+            io.WriteString(os.Stdout, str)
+        }
     }
     io.WriteString(w, "\r\n")
     io.WriteString(os.Stdout, "\r\n")
@@ -51,3 +53,4 @@ func main() {
     log.Fatal(s.ListenAndServe())
 
 }
+
