@@ -1,12 +1,17 @@
-FROM node:alpine
+FROM go:alpine as builder
 
-MAINTAINER GSMLG < me@gsmlg.org >
+WORKDIR /app
 
-ENV NODE_PORT=80 \
-    NAME=echo
+COPY echo.go /app
+
+RUN go build -o echo echo.go
+
+FROM scratch
+
+LABEL maintainer="GSMLG <me@gsmlg.org>"
 
 EXPOSE 80
 
-COPY server.js /
+COPY --from=builder /app/echo /echo
 
-ENTRYPOINT ["node", "/server.js"]
+ENTRYPOINT ["/echo"]
