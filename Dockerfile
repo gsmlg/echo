@@ -1,10 +1,8 @@
 FROM golang:alpine as builder
 
-WORKDIR /app
+COPY echo.go /go
 
-COPY echo.go /app
-
-RUN go build -o echo echo.go
+RUN go build echo.go
 
 FROM scratch
 
@@ -12,6 +10,6 @@ LABEL maintainer="GSMLG <me@gsmlg.org>"
 
 EXPOSE 80
 
-COPY --from=builder /app/echo /echo
+COPY --from=builder /go/echo /echo
 
 ENTRYPOINT ["/echo"]
