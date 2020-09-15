@@ -39,7 +39,7 @@ func myHandler (w http.ResponseWriter, r *http.Request) {
 func main() {
 
         s := &http.Server{
-                Addr:           ":8088",
+                Addr:           ":80",
                 Handler:        http.HandlerFunc(myHandler),
                 ReadTimeout:    10 * time.Second,
                 WriteTimeout:   10 * time.Second,
